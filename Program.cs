@@ -14,6 +14,14 @@ namespace quizrt_auth_server
     {
         public static void Main(string[] args)
         {
+            // try
+            // {
+            //     DotNetEnv.Env.Load("./machine_config/machine.env");
+            // }
+            // catch (Exception e)
+            // {
+            //     Console.WriteLine(e);
+            // }
             CreateWebHostBuilder(args).Build().Run();
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using quizrtAuthServer.Models;
 
@@ -16,26 +17,71 @@ namespace quizrtAuthServer.Controllers
         {
             this.service = _service;
         }
-        
-        // GET api/values
+
+        // GET api/Auth/users
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [Route("users")]
+        public async Task<IActionResult> GetAllUsers()
         {
-            return new string[] { "value1", "value2" };
+            List<User> users = await service.GetAllUsersAsync();
+            return Ok(users);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("signup")]
+        public async Task<IActionResult> SignUpUser([FromBody] User user)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(await service.EmailExistsAsync(user.Email))
+            {
+                return BadRequest("ERROR! : Email already exists");
+            }
+
+            string hashedPassword = service.HashPassword(user.Password);
+            user.Password = hashedPassword;
+
+            await service.CreateUserAsync(user);
+            return Ok();
         }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] Login user)
+        {
+            if(user == null)
+            {
+                return BadRequest("Invalid Request");
+            }
+
+            string tokenString = await service.LoginAsync(user.Email, user.Password);
+            if(tokenString == "Incorrect Password")
+            {
+                return BadRequest("ERROR!: Incorrect Password");
+            }
+
+            else if(tokenString == null)
+            {
+                return Unauthorized();
+            }
+
+            else
+            {
+                CookieOptions cookie = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddMinutes(10)
+                };
+                HttpContext.Response.Cookies.Append("UserLoginAPItoken", tokenString, cookie);
+                return Ok(new {Token = tokenString});
+            }
+        }
+
+        
 
         // PUT api/values/5
         [HttpPut("{id}")]
