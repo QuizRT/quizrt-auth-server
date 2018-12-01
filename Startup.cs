@@ -40,8 +40,8 @@ namespace quizrt_auth_server
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
 
-                        ValidIssuer = "http://localhost:5050",
-                        ValidAudience = "http://localhost:5050",
+                       // ValidIssuer = "http://localhost:5050",
+                       // ValidAudience = "http://localhost:5050",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@007"))
                     };
             });
