@@ -1,0 +1,21 @@
+services:
+  quizrt-auth-db:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Your_password123
+    image: microsoft/mssql-server-linux
+    volumes:
+      - ./data/mssql:/var/opt/mssql
+    ports:
+      - "1433"
+  quizrt-auth-server:
+    build: .
+    environment:
+      SQLSERVER_HOST: Server=prateek-db;User=sa;Password=Your_password123
+    links:
+      - quizrt-auth-db
+    ports:
+      - "8091:5000"
+    networks:
+      - quizrt-question-generator-server_default
+version: "3"
