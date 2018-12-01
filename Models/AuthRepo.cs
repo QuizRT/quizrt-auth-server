@@ -117,7 +117,7 @@ namespace quizrtAuthServer.Models
                     {
                         //string ConsulIp = Environment.GetEnvironmentVariable("MACHINE_LOCAL_IPV4");
                         //string ConsulIpHost = "http://" + ConsulIp + ":8500";
-                        string ConsulIpHost = "http://172.23.238.173:8500";
+                        string ConsulIpHost = "http://172.23.238.164:8500";
                         Console.WriteLine(ConsulIpHost);
                         client.Config.Address = new Uri(ConsulIpHost);
                         var putPair = new KVPair("secretkey")
