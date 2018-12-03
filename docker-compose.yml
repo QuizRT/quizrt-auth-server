@@ -7,15 +7,13 @@ services:
     volumes:
       - ./data/mssql:/var/opt/mssql
     ports:
-      - "1433"
+      - "1437"
   quizrt-auth-server:
     build: .
     environment:
-      SQLSERVER_HOST: Server=prateek-db;User=sa;Password=Your_password123
+      SQLSERVER_HOST: Server=quizrt-auth-db;User=sa;Password=Your_password123
     links:
       - quizrt-auth-db
     ports:
       - "8091:5000"
-    networks:
-      - quizrt-question-generator-server_default
 version: "3"
