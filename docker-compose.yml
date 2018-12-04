@@ -7,8 +7,8 @@ services:
     image: microsoft/mssql-server-linux
     volumes:
       - ./data/mssql:/var/opt/mssql
-    ports:
-      - "1437"
+    networks: 
+      - authentication-network
   quizrt-auth-server:
     build: .
     environment:
@@ -17,6 +17,8 @@ services:
       - quizrt-auth-db
     ports:
       - "8091:5000"
+    networks: 
+      - authentication-network
 networks: 
   authentication-network:
     name: quizrt-network
