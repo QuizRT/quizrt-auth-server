@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Consul;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
 
 namespace quizrtAuthServer.Models
 {
