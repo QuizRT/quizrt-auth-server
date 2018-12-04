@@ -74,7 +74,7 @@ namespace quizrtAuthServer.Controllers
             {
                 CookieOptions cookie = new CookieOptions
                 {
-                    Expires = DateTime.Now.AddMinutes(10)
+                   // Expires = DateTime.Now.AddMinutes(10)
                 };
                 HttpContext.Response.Cookies.Append("UserLoginAPItoken", tokenString, cookie);
                 return Ok(new {Token = tokenString});
