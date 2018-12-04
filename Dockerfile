@@ -1,8 +1,8 @@
 FROM microsoft/dotnet:sdk AS build-env
 
-COPY . /socialapp
+COPY . /authapp
 
-WORKDIR /socialapp
+WORKDIR /authapp
 
 RUN ["dotnet", "restore"]
 
