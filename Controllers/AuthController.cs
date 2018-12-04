@@ -53,7 +53,7 @@ namespace quizrtAuthServer.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] Login user)
         {
