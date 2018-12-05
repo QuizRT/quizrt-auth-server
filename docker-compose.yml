@@ -15,8 +15,10 @@ services:
       SQLSERVER_HOST: Server=quizrt-auth-db;User=sa;Password=Your_password123
     links:
       - quizrt-auth-db
+    labels:
+      SERVICE_5000_NAME: Authentication
     ports:
-      - "8091:5000"
+      - "5000"
     networks: 
       - authentication-network
 networks: 
