@@ -112,7 +112,7 @@ namespace quizrtAuthServer.Models
 
                     Chilkat.Jwt jwt = new Chilkat.Jwt();
                     int currentDateTime = jwt.GenNumericDate(0);
-                    claims.AddIntAt(-1, "exp", currentDateTime + 3000);
+                   // claims.AddIntAt(-1, "exp", currentDateTime + 3000);
                     
                     string token = jwt.CreateJwtPk(jwtHeader.Emit(), claims.Emit(), rsaPrivateKey);
 
